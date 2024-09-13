@@ -2,22 +2,22 @@
   {
     "objectID": "project.html",
     "href": "project.html",
-    "title": "Projects",
+    "title": "Historical Events",
     "section": "",
-    "text": "Project 1\nProject 2\nProject 3\nProject 4"
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Quarto Web Demo",
-    "section": "",
-    "text": "This is the main landing page!\n\nTo learn more about geezers.\nTo learn more about Quarto websites."
+    "text": "Record Book\nJan C. Watson Field Dedication\n2023 MAC Championship Team Roster\nPhotos"
   },
   {
     "objectID": "about.html",
     "href": "about.html",
-    "title": "About Me",
+    "title": "About ASU Field Hockey",
     "section": "",
-    "text": "This is where you get to write about yourself.\nIf your favorite color is purple you might show a graph that uses purple."
+    "text": "There are typically about 25 individuals on the team roster.\nThere are 4 different positions on the field."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Appalachian State Field Hockey",
+    "section": "",
+    "text": "Click on the links below to learn more.\n\nTo learn more about Field Hockey.\nTo learn more about Appalachian State Sports."
   }
 ]

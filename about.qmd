@@ -1,14 +1,14 @@
 ---
-title: "About Me"
+title: "About ASU Field Hockey"
 ---
 
-This is where you get to write about yourself.
+There are typically about 25 individuals on the team roster.
 
-If your favorite color is purple you might show a graph that uses purple.
+There are 4 different positions on the field.
 
 ```{r}
 #| echo: false
 set.seed(123)
-hist(rnorm(10000), col = "purple", main = "Purple Histogram", xlab = "")
+hist(rnorm(10000), col = "yellow", main = "Positions on Team", xlab = "")
 ```
 

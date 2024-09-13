@@ -1,11 +1,11 @@
 ---
-title: "Quarto Web Demo"
+title: "Appalachian State Field Hockey"
 ---
 
-This is the main landing page!
+Click on the links below to learn more. 
 
-* To learn more about [geezers](https://www.thegeezer.com/).
+* To learn more about [Field Hockey](https://www.ncaa.org/sports/2013/12/5/field-hockey-rules-of-the-game.aspx).
 
-* To learn more about [Quarto websites](https://quarto.org/docs/websites).
+* To learn more about [Appalachian State Sports](https://www.appstatesports.com).
 
 
