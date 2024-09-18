@@ -3,7 +3,7 @@ project:
   output-dir: docs
 
 website:
-  title: "Claire"
+  title: "Claire J. Grenis"
   navbar:
     left:
       - href: index.qmd
@@ -16,7 +16,7 @@ website:
         href: https://www.mountainproject.com/area/112001458/the-dump
       - icon: twitter
         href: https://x.com
-      - icon: linkedin
+      - icon: linkedin https://www.linkedin.com/in/claire-grenis-619b062b1/
         href: https://www.linkedin.com/
       - icon: github
         menu:
@@ -27,7 +27,7 @@ website:
 
 format:
   html:
-    theme: sandstone  # flatly, litera, lumen, lux, minty, pulse, sandstone, zephyr, quartz, yeti, cosmo, sketchy
+    theme: cosmo  # flatly, litera, lumen, lux, minty, pulse, sandstone, zephyr, quartz, yeti, cosmo, sketchy
     css: styles.css
     toc: true
 

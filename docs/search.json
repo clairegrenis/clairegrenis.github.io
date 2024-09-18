@@ -1,23 +1,58 @@
 [
   {
-    "objectID": "project.html",
-    "href": "project.html",
-    "title": "Historical Events",
-    "section": "",
-    "text": "Record Book\nJan C. Watson Field Dedication\n2023 MAC Championship Team Roster\nPhotos"
+    "objectID": "combining_data_frames.html#problem-one",
+    "href": "combining_data_frames.html#problem-one",
+    "title": "Combining Data Sets",
+    "section": "Problem One",
+    "text": "Problem One\nTake a closer look at the three data frames - happy, happy_join_one, and happy_full\n\nglimpse(happy)\n\nRows: 5\nColumns: 4\n$ country_name   &lt;chr&gt; \"Iraq\", \"Comoros\", \"Panama\", \"Maldives\", \"Spain\"\n$ ladder_score   &lt;dbl&gt; 4.854, 4.289, 6.180, 5.198, 6.491\n$ gdp            &lt;dbl&gt; 9.240, 8.031, 10.350, 9.826, 10.571\n$ social_support &lt;dbl&gt; 0.746, 0.626, 0.896, 0.913, 0.932\n\nglimpse(happy_join_one)\n\nRows: 5\nColumns: 2\n$ country_name            &lt;chr&gt; \"Iraq\", \"Comoros\", \"Panama\", \"Maldives\", \"Spai…\n$ healthy_life_expectancy &lt;dbl&gt; 60.583, 57.349, 69.652, 70.600, 74.700\n\nglimpse(happy_full)\n\nRows: 149\nColumns: 20\n$ country_name                              &lt;chr&gt; \"Finland\", \"Denmark\", \"Switz…\n$ region                                    &lt;chr&gt; \"Western Europe\", \"Western E…\n$ ladder_score                              &lt;dbl&gt; 7.842, 7.620, 7.571, 7.554, …\n$ standard_error_of_ladder_score            &lt;dbl&gt; 0.032, 0.035, 0.036, 0.059, …\n$ upperwhisker                              &lt;dbl&gt; 7.904, 7.687, 7.643, 7.670, …\n$ lowerwhisker                              &lt;dbl&gt; 7.780, 7.552, 7.500, 7.438, …\n$ logged_gdp_per_capita                     &lt;dbl&gt; 10.775, 10.933, 11.117, 10.8…\n$ social_support                            &lt;dbl&gt; 0.954, 0.954, 0.942, 0.983, …\n$ healthy_life_expectancy                   &lt;dbl&gt; 72.000, 72.700, 74.400, 73.0…\n$ freedom_to_make_life_choices              &lt;dbl&gt; 0.949, 0.946, 0.919, 0.955, …\n$ generosity                                &lt;dbl&gt; -0.098, 0.030, 0.025, 0.160,…\n$ perceptions_of_corruption                 &lt;dbl&gt; 0.186, 0.179, 0.292, 0.673, …\n$ ladder_score_in_dystopia                  &lt;dbl&gt; 2.43, 2.43, 2.43, 2.43, 2.43…\n$ explained_by_log_gdp_per_capita           &lt;dbl&gt; 1.446, 1.502, 1.566, 1.482, …\n$ explained_by_social_support               &lt;dbl&gt; 1.106, 1.108, 1.079, 1.172, …\n$ explained_by_healthy_life_expectancy      &lt;dbl&gt; 0.741, 0.763, 0.816, 0.772, …\n$ explained_by_freedom_to_make_life_choices &lt;dbl&gt; 0.691, 0.686, 0.653, 0.698, …\n$ explained_by_generosity                   &lt;dbl&gt; 0.124, 0.208, 0.204, 0.293, …\n$ explained_by_perceptions_of_corruption    &lt;dbl&gt; 0.481, 0.485, 0.413, 0.170, …\n$ dystopia_residual                         &lt;dbl&gt; 3.253, 2.868, 2.839, 2.967, …"
   },
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About ASU Field Hockey",
-    "section": "",
-    "text": "There are typically about 25 individuals on the team roster.\nThere are 4 different positions on the field."
+    "objectID": "combining_data_frames.html#problem-two",
+    "href": "combining_data_frames.html#problem-two",
+    "title": "Combining Data Sets",
+    "section": "Problem Two",
+    "text": "Problem Two\nCombine happy and happy_join_one by row\n\nbind_rows(happy, happy_join_one)\n\n# A tibble: 10 × 5\n   country_name ladder_score   gdp social_support healthy_life_expectancy\n   &lt;chr&gt;               &lt;dbl&gt; &lt;dbl&gt;          &lt;dbl&gt;                   &lt;dbl&gt;\n 1 Iraq                 4.85  9.24          0.746                    NA  \n 2 Comoros              4.29  8.03          0.626                    NA  \n 3 Panama               6.18 10.4           0.896                    NA  \n 4 Maldives             5.20  9.83          0.913                    NA  \n 5 Spain                6.49 10.6           0.932                    NA  \n 6 Iraq                NA    NA            NA                        60.6\n 7 Comoros             NA    NA            NA                        57.3\n 8 Panama              NA    NA            NA                        69.7\n 9 Maldives            NA    NA            NA                        70.6\n10 Spain               NA    NA            NA                        74.7"
+  },
+  {
+    "objectID": "combining_data_frames.html#problem-three",
+    "href": "combining_data_frames.html#problem-three",
+    "title": "Combining Data Sets",
+    "section": "Problem Three",
+    "text": "Problem Three\nCombine happy and happy_join_one by column\n\nnrow(happy) == nrow(happy_join_one)\n\n[1] TRUE\n\nbind_cols(happy, happy_join_one)\n\nNew names:\n• `country_name` -&gt; `country_name...1`\n• `country_name` -&gt; `country_name...5`\n\n\n# A tibble: 5 × 6\n  country_name...1 ladder_score   gdp social_support country_name...5\n  &lt;chr&gt;                   &lt;dbl&gt; &lt;dbl&gt;          &lt;dbl&gt; &lt;chr&gt;           \n1 Iraq                     4.85  9.24          0.746 Iraq            \n2 Comoros                  4.29  8.03          0.626 Comoros         \n3 Panama                   6.18 10.4           0.896 Panama          \n4 Maldives                 5.20  9.83          0.913 Maldives        \n5 Spain                    6.49 10.6           0.932 Spain           \n# ℹ 1 more variable: healthy_life_expectancy &lt;dbl&gt;"
+  },
+  {
+    "objectID": "combining_data_frames.html#problem-four",
+    "href": "combining_data_frames.html#problem-four",
+    "title": "Combining Data Sets",
+    "section": "Problem Four",
+    "text": "Problem Four\nWhich join function is a better alternative to the previous solution?\n\nhappy%&gt;%\n  inner_join(happy_join_one)\n\nJoining with `by = join_by(country_name)`\n\n\n# A tibble: 5 × 5\n  country_name ladder_score   gdp social_support healthy_life_expectancy\n  &lt;chr&gt;               &lt;dbl&gt; &lt;dbl&gt;          &lt;dbl&gt;                   &lt;dbl&gt;\n1 Iraq                 4.85  9.24          0.746                    60.6\n2 Comoros              4.29  8.03          0.626                    57.3\n3 Panama               6.18 10.4           0.896                    69.7\n4 Maldives             5.20  9.83          0.913                    70.6\n5 Spain                6.49 10.6           0.932                    74.7"
+  },
+  {
+    "objectID": "combining_data_frames.html#problem-five",
+    "href": "combining_data_frames.html#problem-five",
+    "title": "Combining Data Sets",
+    "section": "Problem Five",
+    "text": "Problem Five\nFilter out all countries from happy_full that are also in happy\n\nhappy_full %&gt;%\n  anti_join(happy)\n\nJoining with `by = join_by(country_name, ladder_score, social_support)`\n\n\n# A tibble: 144 × 20\n   country_name region          ladder_score standard_error_of_la…¹ upperwhisker\n   &lt;chr&gt;        &lt;chr&gt;                  &lt;dbl&gt;                  &lt;dbl&gt;        &lt;dbl&gt;\n 1 Finland      Western Europe          7.84                  0.032         7.90\n 2 Denmark      Western Europe          7.62                  0.035         7.69\n 3 Switzerland  Western Europe          7.57                  0.036         7.64\n 4 Iceland      Western Europe          7.55                  0.059         7.67\n 5 Netherlands  Western Europe          7.46                  0.027         7.52\n 6 Norway       Western Europe          7.39                  0.035         7.46\n 7 Sweden       Western Europe          7.36                  0.036         7.43\n 8 Luxembourg   Western Europe          7.32                  0.037         7.40\n 9 New Zealand  North America …         7.28                  0.04          7.36\n10 Austria      Western Europe          7.27                  0.036         7.34\n# ℹ 134 more rows\n# ℹ abbreviated name: ¹​standard_error_of_ladder_score\n# ℹ 15 more variables: lowerwhisker &lt;dbl&gt;, logged_gdp_per_capita &lt;dbl&gt;,\n#   social_support &lt;dbl&gt;, healthy_life_expectancy &lt;dbl&gt;,\n#   freedom_to_make_life_choices &lt;dbl&gt;, generosity &lt;dbl&gt;,\n#   perceptions_of_corruption &lt;dbl&gt;, ladder_score_in_dystopia &lt;dbl&gt;,\n#   explained_by_log_gdp_per_capita &lt;dbl&gt;, explained_by_social_support &lt;dbl&gt;, …"
   },
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Appalachian State Field Hockey",
+    "title": "Claire J. Grenis",
     "section": "",
-    "text": "Click on the links below to learn more.\n\nTo learn more about Field Hockey.\nTo learn more about Appalachian State Sports."
+    "text": "Student-Athlete studying Environmental Science, Earth Systems Science: Geography while playing field hockey at the Division I level.\nClick on the links below to learn more.\n\nTo learn more about Earth Systems Science at Appalachian State University.\nTo learn more about Appalachian State Field Hockey."
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "Example Geographical Information Systems Map",
+    "section": "",
+    "text": "The use of GIS and my ability to use software such as ArcGIS Pro has proven to be extremely useful throughout my academic career thus far.\nThe following map was completed through the use of a shapefile containing the required data and ArcGIS Pro.\n\n\n\nAlt text"
+  },
+  {
+    "objectID": "project.html",
+    "href": "project.html",
+    "title": "Involvement and Awards",
+    "section": "",
+    "text": "All of the following are projects that I have either been involved in as a research intern or as a member of the participating team. Awards I have received are also included.\n\nIn the summer of 2024, I worked as a research intern at Syracuse University to analyze thawed permafrost samples for dissolved organic carbon, total nitrogen, pH, and other values. Dissolved Organic Carbon in Northern Permafrost Information\nIn the opening weekend of the 2024 field hockey season posted back-to-back shutouts to earn MAC Defensive Player of the Week. Mid-American Conference Defensive Player of the Week\nWas a member of the 2023 Appalachian State Field Hockey team that won the first championship title in program history. 2023 MAC Championship Team Roster\nServe as an intern for the Appalachian Geological and Environmental Sciences Department’s DAGGER team. Devonian Anoxia, Geochemistry, Geochronology, and Extinction Research Team\nAm able to exhibit the skills necessary to combine data sets within RStudio in the STT2860 course at Appalachian State University. Combining Data Sets"
   }
 ]

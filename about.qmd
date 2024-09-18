@@ -1,14 +1,10 @@
 ---
-title: "About ASU Field Hockey"
+title: "Example Geographical Information Systems Map"
 ---
 
-There are typically about 25 individuals on the team roster.
+The use of GIS and my ability to use software such as ArcGIS Pro has proven to be extremely useful throughout my academic career thus far.
 
-There are 4 different positions on the field.
+The following map was completed through the use of a shapefile containing the required data and ArcGIS Pro.
 
-```{r}
-#| echo: false
-set.seed(123)
-hist(rnorm(10000), col = "yellow", main = "Positions on Team", xlab = "")
-```
+![Alt text](./Pics/Lab2_Map2.pdf)
 

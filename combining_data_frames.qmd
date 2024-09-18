@@ -1,0 +1,67 @@
+---
+title: "Combining Data Sets"
+format: revealjs
+editor: visual
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=TRUE)
+#install.packages("tidyverse")
+library(tidyverse)
+```
+
+```{r}
+#install.packages("remotes")
+#remotes::install_github("matthewhirschey/tidybiology", force = TRUE)
+library(tidybiology)
+
+data(happy)
+data(happy_join_one)
+data(happy_full)
+```
+
+## Problem One
+
+Take a closer look at the three data frames - `happy`, `happy_join_one`, and `happy_full`
+
+```{r}
+glimpse(happy)
+glimpse(happy_join_one)
+glimpse(happy_full)
+```
+
+## Problem Two
+
+Combine `happy` and `happy_join_one` by row
+
+```{r}
+bind_rows(happy, happy_join_one)
+```
+
+## Problem Three
+
+Combine `happy` and `happy_join_one` by column
+
+```{r}
+nrow(happy) == nrow(happy_join_one)
+
+bind_cols(happy, happy_join_one)
+```
+
+## Problem Four
+
+Which **join** function is a better alternative to the previous solution?
+
+```{r}
+happy%>%
+  inner_join(happy_join_one)
+```
+
+## Problem Five
+
+Filter out all countries from `happy_full` that are also in `happy`
+
+```{r}
+happy_full %>%
+  anti_join(happy)
+```
