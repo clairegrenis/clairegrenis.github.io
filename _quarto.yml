@@ -12,16 +12,16 @@ website:
       - project.qmd
     
     tools:
-      - icon: trash
-        href: https://www.mountainproject.com/area/112001458/the-dump
+      - icon: globe
+        href: https://earth.appstate.edu/
       - icon: twitter
-        href: https://x.com
+        href: https://x.com/AppFieldHockey?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor
       - icon: linkedin https://www.linkedin.com/in/claire-grenis-619b062b1/
         href: https://www.linkedin.com/
       - icon: github
         menu:
           - text: Source Code
-            href: https://github.com
+            href: https://github.com/clairegrenis
           - text: Report a Bug
             href: https://github.com  
 
