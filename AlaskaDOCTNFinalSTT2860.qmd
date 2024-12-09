@@ -1,0 +1,60 @@
+---
+title: "Alaska 2024 Summer Permafrost Data"
+author: "Claire Grenis"
+format: html
+editor: visual
+---
+
+# Alaskan Exploration Data
+
+This is an exploration into the results of the geochemical analysis of samples of thawed permafrost from the Alaskan tundra during the summer months of 2024. Dozens of samples were transported from Alaska to Syracuse University for component analysis including total nitrogen and dissolved organic carbon content, which is what this project will focus on.
+
+### Research Question
+
+The questions that we want to ask and use data visualizations to figure out are:
+
+1.  Is there a relationship between when in the summer this data was recorded and the concentrations of chemical components
+2.  Is there a correlation between the concentrations of the two chemical components present in the samples
+3.  Are there any hidden relationships that can be uncovered through data visualizations
+
+## Install Packages
+
+```{r}
+library(tidyverse)
+library(ggplot2)
+library(dplyr)
+# install.packages("xlsx")
+library(xlsx)
+```
+
+Great! Now we can begin loading in the data sets. Lets use the "glimpse()" function to take a look at what each data set entails.
+
+```{r}
+# glimpse(CGAlaskaDOC)
+```
+
+```{r}
+# glimpse(CGAlaskaTN)
+```
+
+Each data set, the DOC and the TN, both have three variables.
+
+1.  `Sample ID` Tells us what the individual sample is and is uniquely identifiable
+2.  `umol/L C or N` Tells us what the concentration of the respective chemical component being tested for is.
+3.  `Date` Tells us when the data was recorded (YYYY/MM/DD format)
+
+## Data Visualizations
+
+Now that we have that all established, we can get into some visualizations and figure out the relationships within the data sets.
+
+First, lets make the variable `umol/L C` and `umol/L N` a little easier to work with.
+
+```{r}
+colnames(CGAlaskaDOC)[colnames(data) == "umol/L C"] <- "concentration"
+
+colnames(CGAlaskaTN)[colnames(data) == "umol/L N"] <- "concentration"
+```
+
+Now, we have "concentration" as our name to show the amount of carbon or nitrogen in the samples.
+
+First, let's take a look at what
