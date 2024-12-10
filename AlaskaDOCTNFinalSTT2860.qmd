@@ -23,25 +23,25 @@ The questions that we want to ask and use data visualizations to figure out are:
 library(tidyverse)
 library(ggplot2)
 library(dplyr)
-# install.packages("xlsx")
-library(xlsx)
 ```
 
 Great! Now we can begin loading in the data sets. Lets use the "glimpse()" function to take a look at what each data set entails.
 
 ```{r}
-# glimpse(CGAlaskaDOC)
+DOC <- read.csv("CGAlaskaDOC.csv")
+glimpse(DOC)
 ```
 
 ```{r}
-# glimpse(CGAlaskaTN)
+TN <- read.csv("CGAlaskaTN.csv")
+glimpse(TN)
 ```
 
 Each data set, the DOC and the TN, both have three variables.
 
 1.  `Sample ID` Tells us what the individual sample is and is uniquely identifiable
 2.  `umol/L C or N` Tells us what the concentration of the respective chemical component being tested for is.
-3.  `Date` Tells us when the data was recorded (YYYY/MM/DD format)
+3.  `Date` Tells us when the data was recorded (M/DD/YY format)
 
 ## Data Visualizations
 
@@ -50,11 +50,109 @@ Now that we have that all established, we can get into some visualizations and f
 First, lets make the variable `umol/L C` and `umol/L N` a little easier to work with.
 
 ```{r}
-colnames(CGAlaskaDOC)[colnames(data) == "umol/L C"] <- "concentration"
+colnames(DOC)[colnames(DOC) == "umol.L.C"] <- "concentration"
+colnames(TN)[colnames(TN) == "umol.L.N"] <- "concentration"
 
-colnames(CGAlaskaTN)[colnames(data) == "umol/L N"] <- "concentration"
 ```
 
 Now, we have "concentration" as our name to show the amount of carbon or nitrogen in the samples.
 
-First, let's take a look at what
+Let's also make sure our "Date" is formatted correctly for visualizations. 
+```{r}
+
+DOC$Date <- as.Date(DOC$Date, format = "%m/%d/%Y")
+TN$Date <- as.Date(TN$Date, format = "%m/%d/%Y")
+```
+
+Great! The dates should be alright to work with now. 
+
+First, let's take a look at how to answer the first research question. We need to look at what the relationship between the date that the recording was taken and the concentration of each chemical component is. Two graphs should be produced to demonstrate both carbon and nitrogen.
+
+```{r}
+ggplot(DOC, aes(x = Date, y = concentration)) +
+  geom_point(color = "tan") +
+  geom_smooth(method = "lm", color = "pink", se = FALSE) +
+  labs(
+    title = "Relationship Between Date and Carbon Concentration",
+    x = "Date",
+    y = "Carbon Concentration (umol/L)"
+  ) +
+  theme_minimal()
+
+
+ggplot(TN, aes(x = Date, y = concentration)) +
+  geom_point(color = "tan") +
+  geom_smooth(method = "lm", color = "pink", se = FALSE) +
+  labs(
+    title = "Relationship Between Date and Nitrogen Concentration",
+    x = "Date",
+    y = "Nitrogen Concentration (umol/L)"
+  ) +
+  theme_minimal()
+
+```
+
+Now, we want to see what these look like on the same scale to get an idea of what sorts of concentrations we are looking at, relative to each other. 
+
+```{r}
+
+DOC$Type <- "DOC"
+TN$Type <- "TN"
+
+
+combined_data <- bind_rows(DOC, TN)
+
+ggplot(combined_data, aes(x = Date, y = concentration)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  facet_wrap(~ Type, ncol = 2) +
+  labs(
+    title = "Relationship Between Date and Concentration",
+    x = "Date",
+    y = "Concentration (umol/L)"
+  ) +
+  theme_minimal()
+
+```
+Interesting to see that the concentrations of carbon that we are looking at are so high that they basically make nitrogen obsolete. Let's look at them on the same axes.
+```{r}
+
+DOC$Type <- "DOC"
+TN$Type <- "TN"
+combined_data <- bind_rows(DOC, TN)
+
+
+ggplot(combined_data, aes(x = Date, y = concentration, color = Type)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(
+    title = "Relationship Between Date and Concentrations of DOC and TN",
+    x = "Date",
+    y = "Concentration (umol/L)",
+    color = "Chemical Component"
+  ) +
+  theme_minimal()
+
+```
+This gives us the same result, but it is a bit easier to analyze. 
+
+#### 1. It seems that there is a positive correlation between at what point in the warmer months the sample was taken and what concentration in umol/L there is present for both total nitrogen and dissolved organic carbon.
+
+Now we can look to answer the second research question. We want to know if there is a correlation between the concentrations of the two chemical components present in the samples.
+
+```{r}
+merged_data <- merge(DOC, TN, by = "Sample.ID", suffixes = c("_DOC", "_TN"))
+
+
+ggplot(merged_data, aes(x = concentration_DOC, y = concentration_TN)) +
+  geom_point(color = "tan") +
+  geom_smooth(method = "lm", color = "pink", se = FALSE) +
+  labs(
+    title = "Correlation Between DOC and TN Concentrations",
+    x = "DOC Concentration (umol/L)",
+    y = "TN Concentration (umol/L)"
+  ) +
+  theme_minimal()
+
+```
+

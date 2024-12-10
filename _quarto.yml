@@ -10,6 +10,7 @@ website:
         text: Home
       - about.qmd
       - project.qmd
+      - AlaskaDOCTNFinalSTT2860.qmd
     
     tools:
       - icon: globe
