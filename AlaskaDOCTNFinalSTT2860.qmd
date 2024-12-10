@@ -19,20 +19,25 @@ The questions that we want to ask and use data visualizations to figure out are:
 
 ## Install Packages
 
-```{r}
+```{r, error= FALSE}
+#| include: true
+#| error: false
 library(tidyverse)
+library(patchwork)
 library(ggplot2)
 library(dplyr)
 ```
 
 Great! Now we can begin loading in the data sets. Lets use the "glimpse()" function to take a look at what each data set entails.
 
-```{r}
+```{r, error= FALSE}
+#| include: true
 DOC <- read.csv("CGAlaskaDOC.csv")
 glimpse(DOC)
 ```
 
-```{r}
+```{r, error= FALSE}
+#| include: false
 TN <- read.csv("CGAlaskaTN.csv")
 glimpse(TN)
 ```
@@ -49,7 +54,8 @@ Now that we have that all established, we can get into some visualizations and f
 
 First, lets make the variable `umol/L C` and `umol/L N` a little easier to work with.
 
-```{r}
+```{r, error= FALSE}
+#| include: false
 colnames(DOC)[colnames(DOC) == "umol.L.C"] <- "concentration"
 colnames(TN)[colnames(TN) == "umol.L.N"] <- "concentration"
 
@@ -58,8 +64,8 @@ colnames(TN)[colnames(TN) == "umol.L.N"] <- "concentration"
 Now, we have "concentration" as our name to show the amount of carbon or nitrogen in the samples.
 
 Let's also make sure our "Date" is formatted correctly for visualizations. 
-```{r}
-
+```{r, error= FALSE}
+#| include: false
 DOC$Date <- as.Date(DOC$Date, format = "%m/%d/%Y")
 TN$Date <- as.Date(TN$Date, format = "%m/%d/%Y")
 ```
@@ -156,3 +162,67 @@ ggplot(merged_data, aes(x = concentration_DOC, y = concentration_TN)) +
 
 ```
 
+There is a pretty clear correlation shown! Now we can answer the research question.
+
+#### 2. There is a positive correlation between the two chemical components.
+
+Now, the last research question can be answered using data visualizations. The last question that we are answering is if any other patterns in the data can be uncovered using data visualizations. 
+
+Let's try looking at the distribution of concentrations. Are the densities of the samples distributed pretty evenly? Are they clustered around any specific value?
+
+```{r}
+plot_DOC <- ggplot(DOC, aes(x = concentration)) +
+  geom_density(fill = "navy", alpha = 0.5) +
+  labs(
+    title = "Density Plot of DOC Concentrations",
+    x = "Concentration (umol/L)",
+    y = "Density"
+  ) +
+  theme_minimal()
+
+
+plot_TN <- ggplot(TN, aes(x = concentration)) +
+  geom_density(fill = "skyblue", alpha = 0.5) +
+  labs(
+    title = "Density Plot of TN Concentrations",
+    x = "Concentration (umol/L)",
+    y = "Density"
+  ) +
+  theme_minimal()
+
+plot_DOC + plot_TN
+
+```
+
+It looks like most of the values cluster around the lower limits of detection of their respective instruments. This may indicate reruns of the data could be required. 
+
+
+Now let's take a look at where the data is clustered about in the graph of DOC and TN correlation. We can do this by merging the data, then taking the average of groups of data, then plotting the concentrations of the components against each other. 
+```{r}
+clustering_data <- merged_data[, c("concentration_DOC", "concentration_TN")]
+kmeans_result <- kmeans(clustering_data, centers = 4)
+
+merged_data$Cluster <- as.factor(kmeans_result$cluster)
+
+ggplot(merged_data, aes(x = concentration_DOC, y = concentration_TN, color = Cluster)) +
+  geom_point(size = 3) +
+  labs(
+    title = "Clustering of DOC and TN Concentrations",
+    x = "DOC Concentration (umol/L)",
+    y = "TN Concentration (umol/L)",
+    color = "Cluster"
+  ) +
+  theme_minimal()
+
+```
+
+After some attempts at creating this graph, the best view was with 4 clusters. This really shows that the only portion of the data that is a bit strange is what is shown here as Cluster 4, where the values of TN are a bit higher than expected. Overall, this data doesn't show us too much to dispute a fairly regular pattern of DOC/TN correlation. 
+
+After these plots have been run, we can answer Research Question 3.
+
+#### 3. Based on continued data analysis and exploration, it can be stated that the distribution of the correlations between DOC and TN are fairly normal throughout the dataset. Alternatively, the density distributions of the concentrations of each respective chemical component are a bit low, thus potentially indicating an error in the Total Nitrogen Torch machine and/or Dissolved Organic Carbon Fusion machine. 
+
+
+
+## Conclusion
+The data received from Alaska gave quantitative results that made mathematical sense and were distributed fairly normally, although some retesting may have to be done in order to ensure that the lower limit of detection is accurate. Between the months of May and June, the concentrations of Nitrogen and Carbon both increased over time, which also could indicate an error or a successfully identified pattern. 
