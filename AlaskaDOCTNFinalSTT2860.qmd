@@ -9,6 +9,8 @@ editor: visual
 
 This is an exploration into the results of the geochemical analysis of samples of thawed permafrost from the Alaskan tundra during the summer months of 2024. Dozens of samples were transported from Alaska to Syracuse University for component analysis including total nitrogen and dissolved organic carbon content, which is what this project will focus on.
 
+**The machines used to take these measurements were the DOC/TOC Fusion and the TN Torch**
+
 ### Research Question
 
 The questions that we want to ask and use data visualizations to figure out are:
