@@ -57,7 +57,7 @@ Now that we have that all established, we can get into some visualizations and f
 First, lets make the variable `umol/L C` and `umol/L N` a little easier to work with.
 
 ```{r, error= FALSE}
-#| include: false
+#| include: true
 colnames(DOC)[colnames(DOC) == "umol.L.C"] <- "concentration"
 colnames(TN)[colnames(TN) == "umol.L.N"] <- "concentration"
 
@@ -67,7 +67,7 @@ Now, we have "concentration" as our name to show the amount of carbon or nitroge
 
 Let's also make sure our "Date" is formatted correctly for visualizations. 
 ```{r, error= FALSE}
-#| include: false
+#| include: true
 DOC$Date <- as.Date(DOC$Date, format = "%m/%d/%Y")
 TN$Date <- as.Date(TN$Date, format = "%m/%d/%Y")
 ```
@@ -77,6 +77,8 @@ Great! The dates should be alright to work with now.
 First, let's take a look at how to answer the first research question. We need to look at what the relationship between the date that the recording was taken and the concentration of each chemical component is. Two graphs should be produced to demonstrate both carbon and nitrogen.
 
 ```{r}
+#| label: fig-1
+#| fig-cap: "Line graph showing the relationship between date and carbon concentration."
 ggplot(DOC, aes(x = Date, y = concentration)) +
   geom_point(color = "tan") +
   geom_smooth(method = "lm", color = "pink", se = FALSE) +
@@ -88,6 +90,8 @@ ggplot(DOC, aes(x = Date, y = concentration)) +
   theme_minimal()
 
 
+#| label: fig-2
+#| fig-cap: "Line graph showing the relationship between date and nitrogen concentration."
 ggplot(TN, aes(x = Date, y = concentration)) +
   geom_point(color = "tan") +
   geom_smooth(method = "lm", color = "pink", se = FALSE) +
@@ -110,6 +114,8 @@ TN$Type <- "TN"
 
 combined_data <- bind_rows(DOC, TN)
 
+#| label: fig-3
+#| fig-cap: "Line graphs showing the relationship between date and carbon and nitrogen concentrations."
 ggplot(combined_data, aes(x = Date, y = concentration)) +
   geom_point() +
   geom_smooth(method = "lm", se = FALSE) +
@@ -129,7 +135,8 @@ DOC$Type <- "DOC"
 TN$Type <- "TN"
 combined_data <- bind_rows(DOC, TN)
 
-
+#| label: fig-4
+#| fig-cap: "Line graph showing the relationships between date and carbon and nitrogen concentrations."
 ggplot(combined_data, aes(x = Date, y = concentration, color = Type)) +
   geom_point() +
   geom_smooth(method = "lm", se = FALSE) +
@@ -152,6 +159,8 @@ Now we can look to answer the second research question. We want to know if there
 merged_data <- merge(DOC, TN, by = "Sample.ID", suffixes = c("_DOC", "_TN"))
 
 
+#| label: fig-5
+#| fig-cap: "Line graph showing the relationship between carbon concentration and nitrogen concentration."
 ggplot(merged_data, aes(x = concentration_DOC, y = concentration_TN)) +
   geom_point(color = "tan") +
   geom_smooth(method = "lm", color = "pink", se = FALSE) +
@@ -173,6 +182,9 @@ Now, the last research question can be answered using data visualizations. The l
 Let's try looking at the distribution of concentrations. Are the densities of the samples distributed pretty evenly? Are they clustered around any specific value?
 
 ```{r}
+#| label: fig-6
+#| fig-cap: "Graph showing the density distribution of concentrations of each chemical component."
+
 plot_DOC <- ggplot(DOC, aes(x = concentration)) +
   geom_density(fill = "navy", alpha = 0.5) +
   labs(
@@ -206,6 +218,8 @@ kmeans_result <- kmeans(clustering_data, centers = 4)
 
 merged_data$Cluster <- as.factor(kmeans_result$cluster)
 
+#| label: fig-7
+#| fig-cap: "Graph showing the different clusters of data on the correlation graph."
 ggplot(merged_data, aes(x = concentration_DOC, y = concentration_TN, color = Cluster)) +
   geom_point(size = 3) +
   labs(
